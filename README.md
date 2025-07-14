@@ -1,27 +1,27 @@
-# javascript
-Learning files for Javascript
-\\ For Each Helper \\
+🧾 JavaScript Helper Methods and ES6+ Concepts – Documentation
+🔁 Array Iteration Helpers
+1. forEach
+Purpose: Iterates over each item in an array, performing an operation on each.
 
-function handlePosts() {
-    var posts = [
-      { id: 23, title: 'Daily JS News' },
-      { id: 52, title: 'Code Refactor City' },
-      { id: 105, title: 'The Brightest Ruby' }
-    ];
-    
-    // for (var i = 0; i < posts.length; i++) {
-    //   savePost(posts[i]);
-    // }
-    posts.forEach(function(post){
-        savePost(post);
-    });
-}
---------------------------------------------------------------------
-\\Foreach Helper\\
+Example:
 
-Qn) The array below contains an array of objects, each of which is a representation of an image.  Using the forEach helper, calculate the area of each image and store it in a new array called 'areas'.  The area of an image can be calculated as 'image.height * image.width'.
+js
+Copy
+Edit
+var posts = [
+  { id: 23, title: 'Daily JS News' },
+  { id: 52, title: 'Code Refactor City' },
+  { id: 105, title: 'The Brightest Ruby' }
+];
 
-Sol)
+posts.forEach(function(post) {
+    savePost(post);
+});
+Use Case - Calculating Area:
+
+js
+Copy
+Edit
 var images = [
   { height: 10, width: 30 },
   { height: 20, width: 90 },
@@ -29,294 +29,169 @@ var images = [
 ];
 var areas = [];
 
-function area(height,width) {
-    var result = height*width;
-    areas.push(result);
-}
-images.forEach((image)=>{area(image.height,image.width)})
+images.forEach(image => {
+  areas.push(image.height * image.width);
+});
+2. map
+Purpose: Transforms each element of an array and returns a new array.
 
---------------------------------------------------------------------
-\\Map Helper\\
+Example:
 
-var images = [
-  { height: '34px', width: '39px' },
-  { height: '54px', width: '19px' },
-  { height: '83px', width: '75px' },
-];
-
-var heights = [];
-
-images.map(function Pluck(image){
-    return heights.push(image.height);
-})
---------------------------------------------------------------------
-Qn) Using map, create a new array that contains the distance / time value from each trip.  In other words, the new array should contain the (distance / time) value.  Assign the result to the variable 'speeds'.
+js
+Copy
+Edit
 var trips = [
   { distance: 34, time: 10 },
   { distance: 90, time: 50 },
   { distance: 59, time: 25 }
 ];
 
-const newArr = trips.map(function(trip){
-    return (trip.distance/trip.time)
-    
-});
+var speeds = trips.map(trip => trip.distance / trip.time);
+Use Case - Extract Property:
 
-var speeds = newArr;
---------------------------------------------------------------------
-Qn) Really Hard - Implementing 'Pluck'
-This is a hard one!
-Implement a 'pluck' function.  Pluck should accept an array and a string representing a property name and return an  array containing that property from each object. 
+js
+Copy
+Edit
+var images = [
+  { height: '34px', width: '39px' },
+  { height: '54px', width: '19px' },
+  { height: '83px', width: '75px' },
+];
 
-Example: 
+var heights = images.map(image => image.height);
+Custom Pluck Function:
 
-var paints = [ { color: 'red' }, { color: 'blue' }, { color: 'yellow' }];
-pluck(paints, 'color'); // returns ['red', 'yellow', 'blue'];
-
-Hint:
-
-Remember that you can access a property on an object by using square bracket notation. For example...
-
-var person = { name: 'Bill' };
-person['name'] // returns 'Bill'
-
-sol) 
-let FilterArray = [];
-
+js
+Copy
+Edit
 function pluck(array, property) {
-    FilterArray = [];
-
-    array.forEach(function(item) {
-        if (item.hasOwnProperty(property)) {
-            FilterArray.push(item[property]);
-        }
-    });
-
-    // If no items have the property, return 'no property found'
-    if (FilterArray.length === 0) {
-        FilterArray.push('no property found');
-    }
-
-    return FilterArray;
+    const result = array.map(item => item[property]).filter(Boolean);
+    return result.length > 0 ? result : ['no property found'];
 }
+3. filter
+Purpose: Returns a new array with elements that match a condition.
 
+Example:
 
---------------------------------------------------------------------
-\\Filter Helper\\ :
-
+js
+Copy
+Edit
 var numbers = [15, 25, 35, 45, 55, 65, 75, 85, 95];
+var filteredNumbers = numbers.filter(number => number > 50);
+Use Case - Filter by Multiple Properties:
 
-var filteredNumbers;
-
-filteredNumbers = numbers.filter(function(number){
-    return number > 50;
-})
-
---------------------------------------------------------------------
+js
+Copy
+Edit
 var products = [
-  {name : 'cucumber', type: 'vegetable'},
-  {name : 'banana', type: 'fruit'},
-  {name : 'celery', type: 'vegetable'},
-  {name : 'orange', type: 'fruit'},
+  { name: 'cucumber', type: 'vegetable', quantity: 0, price: 1 },
+  { name: 'banana', type: 'fruit', quantity: 10, price: 15 },
+  { name: 'celery', type: 'vegetable', quantity: 30, price: 13 },
+  { name: 'orange', type: 'fruit', quantity: 3, price: 5 }
 ];
 
-var filteredProducts = []
+var filteredProducts = products.filter(product =>
+  product.type === 'vegetable' && product.quantity > 0 && product.price > 10
+);
+Use Case - Filter Comments by Post ID:
 
-for (var i = 0; i < products.length; i++){
-	if(products[i].type === 'fruit') {
-  	filteredProducts.push(products[i]);
-  }
-}
-
-filteredProducts;
-
-products.filter(function(product){
- 	return product.type === 'vegetable';
- });
---------------------------------------------------------------------
-
-var products = [
-  {name : 'cucumber', type: 'vegetable', quantity: 0, price: 1},
-  {name : 'banana', type: 'fruit', quantity: 10, price: 15},
-  {name : 'celery', type: 'vegetable', quantity: 30, price: 13},
-  {name : 'orange', type: 'fruit', quantity: 3, price: 5},
-];
-
-var filteredProducts = []
-
-products.filter(function(product){
-	return product.type === 'vegetable' 
-  && product.quantity > 0 
-  && product.price > 10
-});
-
---------------------------------------------------------------------
-var post = { id:4, title: 'New Post'};
-
-var comments = [
-  {postId: 4, content: 'awesome post'},
-  {postId: 3, content: 'it is ok post'},
-  {postId: 4, content: 'neat post'},
-];
-
+js
+Copy
+Edit
 function commentForPost(post, comments) {
- return comments.filter(function(comment){
- 	return comment.postId === post.id;
- });
+  return comments.filter(comment => comment.postId === post.id);
 }
-commentForPost(post, comments);
+4. find
+Purpose: Returns the first element that matches a condition.
 
---------------------------------------------------------------------
-find helper ---
+Example:
 
- let users = [
-   {name:'John'},
-   {name:'James'},
-   {name:'Jones'},
- ];
-
-let user;
-
-users.find((user)=>{
-	return user.name === 'James';
-});
-
-user;
-
---------------------------------------------------------------------
-
-
-function Car(model){
-	this.model = model;
-}
-
-var cars = [
-	new Car('Buick'),
-	new Car('Camaro'),
-	new Car('Focus'),
+js
+Copy
+Edit
+let users = [
+  { name: 'John' },
+  { name: 'James' },
+  { name: 'Jones' }
 ];
 
-cars.find(function(car) {
-	return car.model === 'Focus';
-});
+let user = users.find(user => user.name === 'James');
+Use Case - Find Post for a Comment:
 
---------------------------------------------------------------------
-
-var posts = [
-  {id: 1, title: 'New Post'},
-  {id: 2, title: 'Old Post'},
-];
-
-var comment = {postId: 1, content: 'Great post'};
-
+js
+Copy
+Edit
 function postForComment(posts, comment) {
-  return posts.find(function(post) {
-    return post.id === comment.postId;
-  });
+  return posts.find(post => post.id === comment.postId);
 }
+Custom findWhere Function:
 
-postForComment(posts,comment)
---------------------------------------------------------------------
-Really Challenging: Custom findWhere Helper
-This is a tough one!  The most common find operation is to an object that has a given property.  Rather than writing out a full function every time, it would be great if we has a shorthand syntax to find an object like this:
-findWhere(ladders, { height: '20 feet' });
-The object { ladders: '20 feet' } should be used as the search criteria - we would want to find a ladder whose 'height' property was '20 feet';
-
-
-Your goal: Write a 'findWhere' function that achieves this shorthand approach.  'findWhere' should return the found object.
-
-In summary:
-
-var ladders = [
-  { id: 1, height: 20 },
-  { id: 3, height: 25 }
-];
-
-findWhere(ladders, { height: 25 }); // result: { id:3, height: 25 }
-
-Hint: the hard part of this is figuring out the name of the proeprty on the criteria.  You can use Object.keys(criteria)[0] to figure out the name of the property on the object.  For example, Object.keys({ height: '20 feet' }) would return 'height'.  You could then check to see if a given element in the array had a property equal to the criteria's value with something like element[property] === criteria[property].
-
+js
+Copy
+Edit
 function findWhere(array, criteria){
   const property = Object.keys(criteria)[0];
   const value = criteria[property];
 
-    return array.find((element)=> {
-        return element[property] ===value;
-    });
+  return array.find(element => element[property] === value);
 }
---------------------------------------------------------------------
-\Every helper\
+5. every & some
+Purpose:
 
+every: Checks if all elements match a condition.
+
+some: Checks if at least one element matches a condition.
+
+Example:
+
+js
+Copy
+Edit
 var computers = [
-  {name:'Apple',ram: 24},
-  {name:'Compaq',ram: 12},
-  {name:'Lenovo',ram: 4},
-  {name:'Acer',ram: 32},
+  { name: 'Apple', ram: 24 },
+  { name: 'Compaq', ram: 12 },
+  { name: 'Lenovo', ram: 4 },
+  { name: 'Acer', ram: 32 }
 ];
 
-var allCan = true;
-var someCan = false;
+computers.every(computer => computer.ram > 16); // false
+computers.some(computer => computer.ram > 16); // true
+6. reduce
+Purpose: Applies a function to each item and accumulates a result.
 
+Example - Color Extraction:
 
-for (var i=0; i<computers.length; i++){
-	var computer = computers[i];
-  
-  if (computer.ram < 16){
-  	allCan = false;
-  }
-  else{
-  	someCan = true;
-  }
-}
-
-"+_+"
-allCan
-someCan
-"+_+"
-
-computers.every((computer)=>{
-	return computer.ram > 16;
-});
-
-\Some Helper\
-computers.some((computer)=>{
-	return computer.ram > 16;
-});
-
---------------------------------------------------------------------
-\Reduce Helper\
-
+js
+Copy
+Edit
 var primaryColors = [
-  {color: 'red'},
-  {color: 'green'},
-  {color: 'blue'},
+  { color: 'red' },
+  { color: 'green' },
+  { color: 'blue' }
 ];
 
-primaryColors.reduce((prev,primaryColor)=>{
-	prev.push(primaryColor.color);
-  
+var result = primaryColors.reduce((prev, color) => {
+  prev.push(color.color);
   return prev;
-}, []); 
+}, []);
+Use Case - Balanced Parentheses Checker:
 
-// OP: ["red","green","blue"]
---------------------------------------------------------------------
-
-function balanceParens(string){
-	return !string.split("").reduce((prev, char) =>
-  {
-    if(prev < 0) return prev;
-    if(char === "(") return ++prev;
-    if(char === ")") return --prev;
-    return prev;
+js
+Copy
+Edit
+function balanceParens(string) {
+  return !string.split("").reduce((count, char) => {
+    if (count < 0) return count;
+    if (char === "(") return ++count;
+    if (char === ")") return --count;
+    return count;
   }, 0);
 }
+Use Case - Desk Count:
 
-balanceParens(`(())(())()()`);  //true
-balanceParens(`(())((((`);  //false
---------------------------------------------------------------------
-\Reduce Hard\
-
-
+js
+Copy
+Edit
 var desks = [
   { type: 'sitting' },
   { type: 'standing' },
@@ -325,105 +200,105 @@ var desks = [
   { type: 'standing' }
 ];
 
-var deskTypes = desks.reduce(function(acc, desk) {
-    // Check the type of the desk and increment the corresponding count
-    if (desk.type === 'sitting') {
-        acc.sitting += 1;
-    } else if (desk.type === 'standing') {
-        acc.standing += 1;
-    }
-    // Return the accumulator object
-    return acc;
+var deskTypes = desks.reduce((acc, desk) => {
+  if (desk.type === 'sitting') acc.sitting++;
+  else if (desk.type === 'standing') acc.standing++;
+  return acc;
 }, { sitting: 0, standing: 0 });
+🧠 ES6+ Features
+🔹 let and const
+let: block-scoped, reassignable.
 
---------------------------------------------------------------------
-\\ let and const \\
-const statuses = [ 
+const: block-scoped, not reassignable.
+
+Example:
+
+js
+Copy
+Edit
+const statuses = [
   { code: 'OK', response: 'Request successful' },
-  { code: 'FAILED', response: 'There was an error with your request' },
-  { code: 'PENDING', response: 'Your request is still pending' }
+  { code: 'FAILED', response: 'There was an error' },
+  { code: 'PENDING', response: 'Still pending' }
 ];
-let message = ''; // 'message' will be reassigned
+
+let message = '';
 const currentCode = 'OK';
 
-for (let i = 0; i < statuses.length; i++) { // 'i' is block-scoped and will not be reassigned outside the loop
+for (let i = 0; i < statuses.length; i++) {
   if (statuses[i].code === currentCode) {
-    message = statuses[i].response; // 'message' is reassigned here
+    message = statuses[i].response;
   }
 }
+🔹 Arrow Functions
+Syntax Sugar for anonymous functions and more predictable this.
 
---------------------------------------------------------------------
+Example:
 
-\\Arrow fn\\
-
+js
+Copy
+Edit
 const team = {
-	members: ['Jane','Bill'],
+  members: ['Jane', 'Bill'],
   teamName: 'Super Squad',
-  teamSummary : function() {
-  	return this.members.map((member)=>{
-    	return `${member} is on team ${this.teamName}`;
-    });
+  teamSummary() {
+    return this.members.map(member => `${member} is on team ${this.teamName}`);
   }
 };
+🔹 Enhanced Object Literals
+Shorthand for defining object properties and methods.
 
-team.teamSummary();
---------------------------------------------------------------------
+Example:
 
-\\Enhanced Object Literals\\
-
-function createBookShop(inventory){
+js
+Copy
+Edit
+function createBookShop(inventory) {
   return {
-  	inventory,    //inventory: inventory,
-    inventoryValue() { //inventoryValue: function()
-    	return this.inventory.reduce((total,book) => total + book.price, 0);
+    inventory,
+    inventoryValue() {
+      return this.inventory.reduce((total, book) => total + book.price, 0);
     },
-    priceForTitle(title) { //CAN REMOVE FUNCTION AND DIRECTLY USE PROPERTY AS A FUNCTION
-    	return this.inventory.find(book => book.title === title).price;
+    priceForTitle(title) {
+      return this.inventory.find(book => book.title === title).price;
     }
-  };	
+  };
+}
+🔹 Default Function Arguments
+Assign default values to function parameters.
+
+Example:
+
+js
+Copy
+Edit
+function makeAjaxRequest(url, method = 'GET') {
+  return method;
+}
+Dynamic Default:
+
+js
+Copy
+Edit
+function User(id) {
+  this.id = id;
 }
 
-const inventory = [
-  {title: 'Harry Potter', price: 10},
-  {title: 'Shrek 1', price: 15},
-  {title: 'Shrek 2', price: 20},
-];
-
-const bookshop = createBookShop(inventory);
-
-bookshop.inventoryValue();
-bookshop.priceForTitle('Harry Potter');
-
---------------------------------------------------------------------
-
-\\DEFAULT FUNCTION ARGUENTS\\
-
-function makeAjaxRequest(url, method = 'GET', data = []){
-	//logic to make the request
-  url,
-  method
-  return method
+function generateId() {
+  return Math.random() * 99999;
 }
 
-makeAjaxRequest('google.com')
-makeAjaxRequest('google.com', 'POST')
-
---------------------------------------------------------------------
-default fn arguments:
-
-function User(id){
-	this.id = id;
+function createAdminUser(user = new User(generateId())) {
+  user.Admin = true;
+  return user;
 }
 
-function generateId(){
-	return Math.random() * 99999;
-}
-
-function createAdminUser(user = new User(generateId())){
-	user.Admin = true;
-  return user
-}
-
-createAdminUser(new User(generateId()));
---------------------------------------------------------------------
-
+✅ Summary Table
+Method	Purpose
+forEach()	Loop over array without returning value
+map()	Transform array, return new array
+filter()	Return array elements matching condition
+find()	Return first element matching condition
+every()	Return true if all elements match
+some()	Return true if at least one matches
+reduce()	Reduce array to a single value
