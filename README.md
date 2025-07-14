@@ -5,9 +5,7 @@ Purpose: Iterates over each item in an array, performing an operation on each.
 
 Example:
 
-js
-Copy
-Edit
+
 var posts = [
   { id: 23, title: 'Daily JS News' },
   { id: 52, title: 'Code Refactor City' },
@@ -19,9 +17,7 @@ posts.forEach(function(post) {
 });
 Use Case - Calculating Area:
 
-js
-Copy
-Edit
+
 var images = [
   { height: 10, width: 30 },
   { height: 20, width: 90 },
@@ -37,9 +33,7 @@ Purpose: Transforms each element of an array and returns a new array.
 
 Example:
 
-js
-Copy
-Edit
+
 var trips = [
   { distance: 34, time: 10 },
   { distance: 90, time: 50 },
@@ -49,9 +43,7 @@ var trips = [
 var speeds = trips.map(trip => trip.distance / trip.time);
 Use Case - Extract Property:
 
-js
-Copy
-Edit
+
 var images = [
   { height: '34px', width: '39px' },
   { height: '54px', width: '19px' },
@@ -61,9 +53,7 @@ var images = [
 var heights = images.map(image => image.height);
 Custom Pluck Function:
 
-js
-Copy
-Edit
+
 function pluck(array, property) {
     const result = array.map(item => item[property]).filter(Boolean);
     return result.length > 0 ? result : ['no property found'];
@@ -73,16 +63,12 @@ Purpose: Returns a new array with elements that match a condition.
 
 Example:
 
-js
-Copy
-Edit
+
 var numbers = [15, 25, 35, 45, 55, 65, 75, 85, 95];
 var filteredNumbers = numbers.filter(number => number > 50);
 Use Case - Filter by Multiple Properties:
 
-js
-Copy
-Edit
+
 var products = [
   { name: 'cucumber', type: 'vegetable', quantity: 0, price: 1 },
   { name: 'banana', type: 'fruit', quantity: 10, price: 15 },
@@ -95,9 +81,7 @@ var filteredProducts = products.filter(product =>
 );
 Use Case - Filter Comments by Post ID:
 
-js
-Copy
-Edit
+
 function commentForPost(post, comments) {
   return comments.filter(comment => comment.postId === post.id);
 }
@@ -106,9 +90,7 @@ Purpose: Returns the first element that matches a condition.
 
 Example:
 
-js
-Copy
-Edit
+
 let users = [
   { name: 'John' },
   { name: 'James' },
@@ -118,23 +100,19 @@ let users = [
 let user = users.find(user => user.name === 'James');
 Use Case - Find Post for a Comment:
 
-js
-Copy
-Edit
+
 function postForComment(posts, comment) {
   return posts.find(post => post.id === comment.postId);
 }
 Custom findWhere Function:
 
-js
-Copy
-Edit
 function findWhere(array, criteria){
   const property = Object.keys(criteria)[0];
   const value = criteria[property];
 
   return array.find(element => element[property] === value);
 }
+
 5. every & some
 Purpose:
 
@@ -144,9 +122,6 @@ some: Checks if at least one element matches a condition.
 
 Example:
 
-js
-Copy
-Edit
 var computers = [
   { name: 'Apple', ram: 24 },
   { name: 'Compaq', ram: 12 },
@@ -156,14 +131,12 @@ var computers = [
 
 computers.every(computer => computer.ram > 16); // false
 computers.some(computer => computer.ram > 16); // true
+
 6. reduce
 Purpose: Applies a function to each item and accumulates a result.
 
 Example - Color Extraction:
 
-js
-Copy
-Edit
 var primaryColors = [
   { color: 'red' },
   { color: 'green' },
@@ -174,11 +147,9 @@ var result = primaryColors.reduce((prev, color) => {
   prev.push(color.color);
   return prev;
 }, []);
+
 Use Case - Balanced Parentheses Checker:
 
-js
-Copy
-Edit
 function balanceParens(string) {
   return !string.split("").reduce((count, char) => {
     if (count < 0) return count;
@@ -187,11 +158,9 @@ function balanceParens(string) {
     return count;
   }, 0);
 }
+
 Use Case - Desk Count:
 
-js
-Copy
-Edit
 var desks = [
   { type: 'sitting' },
   { type: 'standing' },
@@ -205,7 +174,9 @@ var deskTypes = desks.reduce((acc, desk) => {
   else if (desk.type === 'standing') acc.standing++;
   return acc;
 }, { sitting: 0, standing: 0 });
+
 🧠 ES6+ Features
+
 🔹 let and const
 let: block-scoped, reassignable.
 
@@ -213,9 +184,6 @@ const: block-scoped, not reassignable.
 
 Example:
 
-js
-Copy
-Edit
 const statuses = [
   { code: 'OK', response: 'Request successful' },
   { code: 'FAILED', response: 'There was an error' },
@@ -230,14 +198,12 @@ for (let i = 0; i < statuses.length; i++) {
     message = statuses[i].response;
   }
 }
+
 🔹 Arrow Functions
 Syntax Sugar for anonymous functions and more predictable this.
 
 Example:
 
-js
-Copy
-Edit
 const team = {
   members: ['Jane', 'Bill'],
   teamName: 'Super Squad',
@@ -245,14 +211,12 @@ const team = {
     return this.members.map(member => `${member} is on team ${this.teamName}`);
   }
 };
+
 🔹 Enhanced Object Literals
 Shorthand for defining object properties and methods.
 
 Example:
 
-js
-Copy
-Edit
 function createBookShop(inventory) {
   return {
     inventory,
@@ -264,22 +228,17 @@ function createBookShop(inventory) {
     }
   };
 }
+
 🔹 Default Function Arguments
 Assign default values to function parameters.
 
 Example:
 
-js
-Copy
-Edit
 function makeAjaxRequest(url, method = 'GET') {
   return method;
 }
-Dynamic Default:
 
-js
-Copy
-Edit
+Dynamic Default:
 function User(id) {
   this.id = id;
 }
